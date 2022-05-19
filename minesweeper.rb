@@ -10,20 +10,6 @@ class Minesweeper
     @board.seed
   end
 
-  def load?
-    puts "Load game? (y/n)"
-    print ">"
-
-    input = gets.chomp
-
-    case input
-    when "y"
-      true
-    when "n"
-      false
-    end
-  end
-
   def get_pos
     puts "Please enter a position (like 1,2)"
     print ">"
