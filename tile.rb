@@ -17,14 +17,14 @@ class Tile
   end
 
   def state
-    result = if @revealed
+    result = if !@revealed
       if @flag
         "F"
       else
-        "_"
+        "*"
       end
     else
-      "*"
+      "_"
     end
 
     result
