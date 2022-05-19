@@ -34,12 +34,18 @@ class Tile
   def state
     result = if !@revealed
       if @flag
-        "F"
+        "F".colorize(:color => :red)
       else
-        "*"
+        "*".colorize(:color => :light_black)
       end
     else
-      self.neighbor_bombs.to_s
+      colors = [:light_black, :blue, :green, :red, :purple, :black, :light_black, :light_red, :light_blue]
+      case self.neighbor_bombs
+      when 0
+        "_".colorize(:color => colors[self.neighbor_bombs], :background => :light_yellow)
+      when 1..8
+        self.neighbor_bombs.to_s.colorize(:color => colors[self.neighbor_bombs], :background => :light_yellow)
+      end
     end
 
     result

@@ -1,3 +1,4 @@
+require "colorize"
 require "yaml"
 require_relative "./board.rb"
 require_relative "./tile.rb"

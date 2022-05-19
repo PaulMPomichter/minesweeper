@@ -24,7 +24,7 @@ board: !ruby/object:Board
           - 0
           - 2
           revealed: false
-          flag: false
+          flag: true
           neighbors:
           - *2
           - &4 !ruby/object:Tile

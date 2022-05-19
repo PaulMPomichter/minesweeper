@@ -24,8 +24,9 @@ class Board
   end
 
   def render
-    @grid.each do |row|
-      p row.map(&:state)
+    puts "  #{(0..8).to_a.join(" ")}".colorize(:color => :green)
+    grid.each_with_index do |row, i|
+      puts "#{i.to_s.colorize(:color => :green)} #{row.map(&:state).join(" ").colorize(:background => :light_yellow)}"
     end
   end
 
