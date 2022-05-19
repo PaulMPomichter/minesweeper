@@ -24,4 +24,13 @@ class Board
       p row.map(&:state)
     end
   end
+
+  def [](pos)
+    row, col = pos
+    @grid[row][col]
+  end
+
+  def place_flag(pos)
+    self[pos].flag = true
+  end
 end
