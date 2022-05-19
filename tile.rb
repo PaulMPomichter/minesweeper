@@ -8,10 +8,23 @@ class Tile
   alias_method :revealed?, :revealed
   alias_method :flag?, :flag
 
-  def initialize(pos, bomb, board)
-    @pos, @bomb, @board = pos, bomb, board
+  def initialize(pos, bomb)
+    @pos, @bomb = pos, bomb
     @revealed = false
     @flag = false
+    @neighbors = []
+  end
+
+  def populate_neighbors(board)
+    neighbor_positions = self.find_neighbors(board)
+
+    neighbor_positions.each do |np|
+      @neighbors << board[np]
+    end
+  end
+
+  def neighbor_bombs
+    @neighbors.count { |tile| tile.bomb? }
   end
 
   def inspect
@@ -26,9 +39,26 @@ class Tile
         "*"
       end
     else
-      "_"
+      self.neighbor_bombs.to_s
     end
 
     result
+  end
+
+  def find_neighbors(board)
+    deltas = [
+      [-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]
+    ]
+    neighbor_pos = []
+
+    deltas.each do |delta|
+      neighbor_pos << @pos.map.with_index do |e, i|
+        e + delta[i]
+      end
+    end
+
+    neighbor_pos.select do |arr|
+      arr.all? { |e| e >= 0 && e < board.grid.length && e < board.grid[0].length }
+    end
   end
 end

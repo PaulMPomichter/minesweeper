@@ -50,6 +50,7 @@ class Minesweeper
 
     if @board.win?
       puts "You win!"
+      @board.render
     elsif @board.lose?
       puts "BOOM!"
     end

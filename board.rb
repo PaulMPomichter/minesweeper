@@ -1,4 +1,6 @@
 class Board
+  attr_reader :grid
+
   def initialize
     @grid = Array.new(9) { Array.new(9) }
   end
@@ -11,12 +13,14 @@ class Board
 
         case random
         when 0
-          Tile.new(pos, true, self)
+          Tile.new(pos, true)
         when 1..9
-          Tile.new(pos, false, self)
+          Tile.new(pos, false)
         end
       end
     end
+
+    @grid.flatten.each { |tile| tile.populate_neighbors(self) }
   end
 
   def render
