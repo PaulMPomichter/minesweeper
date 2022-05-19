@@ -1,3 +1,4 @@
+require "yaml"
 require_relative "./board.rb"
 require_relative "./tile.rb"
 
@@ -7,6 +8,20 @@ class Minesweeper
   def initialize
     @board = Board.new
     @board.seed
+  end
+
+  def load?
+    puts "Load game? (y/n)"
+    print ">"
+
+    input = gets.chomp
+
+    case input
+    when "y"
+      true
+    when "n"
+      false
+    end
   end
 
   def get_pos
@@ -33,6 +48,9 @@ class Minesweeper
 
   def play_turn
     system("clear")
+    puts "Game Autosaved"
+    puts
+    self.save_game
     @board.render
 
     pos = self.get_pos
@@ -55,9 +73,21 @@ class Minesweeper
       puts "BOOM!"
     end
   end
+
+  def save_game
+    File.write("save.yml", YAML.dump(self))
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME
-  game = Minesweeper.new
-  game.run
+  puts "Load game? (y/n)"
+  print ">"
+  load_game = gets.chomp
+
+  case load_game
+  when "y"
+    YAML.unsafe_load(File.open("save.yml")).run
+  when "n"
+    Minesweeper.new.run
+  end
 end
