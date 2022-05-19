@@ -1,6 +1,6 @@
 class Tile
   attr_accessor :bomb, :revealed, :flag
-  attr_reader :pos
+  attr_reader :pos, :neighbors
 
   # Note: alias_method will only provide the getter, the setter will remain the same
 
